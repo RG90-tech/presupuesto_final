@@ -5,9 +5,9 @@ let ingresos = [
 ];
 
 let egresos = [
-  new Egreso("Renta", 900),
-  new Egreso("Ropa", 400),
-  new Egreso("Prueba2", 6000),
+  new Egreso("Renta", -900),
+  new Egreso("Ropa", -400),
+  new Egreso("Prueba2", -6000),
 ];
 
 // Función para cargar el cabecero
@@ -32,6 +32,7 @@ const formatoMoneda = (valor) => {
     style: "currency",
     currency: "MXN",
     minimumFractionDigits: 2,
+    signDisplay: "always" //
   });
 };
 
@@ -67,7 +68,7 @@ const crearIngresoHTML = (ingreso) => {
 
             <div class="derecha limpiarEstilos">
                 <div class="elemento_valor">
-                    ${formatoMoneda(ingreso.valor)}
+                   ${formatoMoneda(ingreso.valor)}
                 </div>
 
                 <div class="elemento_eliminar">
@@ -102,7 +103,7 @@ const crearEgresoHTML = (egreso) => {
 
             <div class="derecha limpiarEstilos">
                 <div class="elemento_valor">
-                    ${formatoMoneda(egreso.valor)}
+                   ${formatoMoneda(egreso.valor)}
                 </div>
 
                 <div class="elemento_eliminar">
