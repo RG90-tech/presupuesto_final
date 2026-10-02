@@ -1,13 +1,11 @@
-let ingresos = [
+const ingresos = [
   new Ingreso("Salario", 3000),
   new Ingreso("Venta auto", 600),
-  new Ingreso("Prueba", 5000),
 ];
 
-let egresos = [
+const egresos = [
   new Egreso("Renta", -900),
   new Egreso("Ropa", -400),
-  new Egreso("Prueba2", -6000),
 ];
 
 // Función para cargar el cabecero
@@ -85,38 +83,35 @@ const crearIngresoHTML = (ingreso) => {
 };
 
 const cargarEgresos = () => {
-  let egresosHTML = "";
+    let egresosHTML = '';
+    const totalIng = totalIngresos(); // Obtiene el total acumulado
 
-  for (let egreso of egresos) {
-    egresosHTML += crearEgresoHTML(egreso);
-  }
+    for (let egreso of egresos) {
+        egresosHTML += crearEgresoHTML(egreso, totalIng);
+    }
 
-  document.getElementById("lista-egresos").innerHTML = egresosHTML;
+    document.getElementById('lista-egresos').innerHTML = egresosHTML;
 };
 
-const crearEgresoHTML = (egreso) => {
-  let egresoHTML = `
-        <div class="elemento limpiarEstilos">
-            <div class="elemento_descripcion">
-                ${egreso.descripcion}
-            </div>
+const crearEgresoHTML = (egreso, totalIngresos) => {
+    const porcentaje = totalIngresos > 0 
+        ? ((egreso.valor / totalIngresos) * 100).toFixed(2) + '%' 
+        : '0%';
 
-            <div class="derecha limpiarEstilos">
-                <div class="elemento_valor">
-                   ${formatoMoneda(egreso.valor)}
-                </div>
-
-                <div class="elemento_eliminar">
-                    <ion-icon
-                        name="close-circle-outline"
-                        onclick="eliminarEgreso(${egreso.id})">
-                    </ion-icon>
-                </div>
+    return `
+    <div class="elemento limpiarfix" id="egreso-${egreso.id}">
+        <div class="elemento__descripcion">${egreso.descripcion}</div>
+        <div class="derecha limpiarfix">
+            <div class="elemento__valor">${formatearValor(egreso.valor)}</div>
+            <div class="elemento__porcentaje">${porcentaje}</div>
+            <div class="elemento__eliminar">
+                <button class="elemento__eliminar--btn" onclick="eliminarEgreso(${egreso.id})">
+                    <ion-icon name="close-circle-outline"></ion-icon>
+                </button>
             </div>
         </div>
+    </div>
     `;
-
-  return egresoHTML;
 };
 
 const cargarApp = () => {
@@ -164,4 +159,11 @@ const agregarDato = () => {
     }
 };
 
-
+// Función para dar formato de moneda/valor a los números
+const formatearValor = (valor) => {
+    return valor.toLocaleString('es-MX', {
+        style: 'currency',
+        currency: 'MXN',
+        minimumFractionDigits: 2
+    });
+};
