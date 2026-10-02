@@ -58,28 +58,20 @@ const cargarIngresos = () => {
 };
 
 const crearIngresoHTML = (ingreso) => {
-  let ingresoHTML = `
-        <div class="elemento limpiarEstilos">
-            <div class="elemento_descripcion">
-                ${ingreso.descripcion}
-            </div>
-
-            <div class="derecha limpiarEstilos">
-                <div class="elemento_valor">
-                   ${formatoMoneda(ingreso.valor)}
-                </div>
-
-                <div class="elemento_eliminar">
-                    <ion-icon
-                        name="close-circle-outline"
-                        onclick="eliminarIngreso(${ingreso.id})">
-                    </ion-icon>
-                </div>
+    return `
+    <div class="elemento limpiarfix" id="ingreso-${ingreso.id}">
+        <div class="elemento__descripcion">${ingreso.descripcion}</div>
+        <div class="derecha limpiarfix">
+            <!-- Agregamos la clase ingreso--color y el signo + -->
+            <div class="elemento__valor ingreso--color">+ ${formatearValor(ingreso.valor)}</div>
+            <div class="elemento__eliminar">
+                <button class="elemento__eliminar--btn" onclick="eliminarIngreso(${ingreso.id})">
+                    <ion-icon name="close-circle-outline"></ion-icon>
+                </button>
             </div>
         </div>
+    </div>
     `;
-
-  return ingresoHTML;
 };
 
 const cargarEgresos = () => {
@@ -102,7 +94,8 @@ const crearEgresoHTML = (egreso, totalIngresos) => {
     <div class="elemento limpiarfix" id="egreso-${egreso.id}">
         <div class="elemento__descripcion">${egreso.descripcion}</div>
         <div class="derecha limpiarfix">
-            <div class="elemento__valor">${formatearValor(egreso.valor)}</div>
+            <!-- Agregamos la clase egreso--color y el signo - -->
+            <div class="elemento__valor egreso--color">- ${formatearValor(egreso.valor)}</div>
             <div class="elemento__porcentaje">${porcentaje}</div>
             <div class="elemento__eliminar">
                 <button class="elemento__eliminar--btn" onclick="eliminarEgreso(${egreso.id})">
@@ -118,6 +111,20 @@ const cargarApp = () => {
   cargarCabecero();
   cargarIngresos();
   cargarEgresos();
+};
+
+const eliminarIngreso = (id) => {
+    // Busca el índice del ingreso a eliminar
+    const indiceEliminar = ingresos.findIndex(ingreso => ingreso.id === id);
+    
+    if (indiceEliminar !== -1) {
+        ingresos.splice(indiceEliminar, 1);
+        
+        // Llama a la función correcta de la cabecera
+        cargarCabecero(); 
+        cargarIngresos();
+        cargarEgresos(); // Actualiza porcentajes al cambiar el total
+    }
 };
 
 const eliminarEgreso = (id) => {
