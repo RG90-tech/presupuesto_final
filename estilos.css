@@ -408,9 +408,14 @@ body {
   flex: 1; /* Ocupa todo el espacio disponible en el centro */
 }
 
-/* 3. Estilo del footer para asegurarse de quedar abajo */
-footer,
+/* Estilo general del footer */
 .pie-pagina {
-  margin-top: auto; /* Empuja el footer hacia la parte inferior */
+  background: linear-gradient(to left, #7b4397, #dc2430); /* Mismos colores y dirección que .cabecero */
+  color: #ffffff;
+  padding: 20px 0;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  margin-top: auto; 
   width: 100%;
 }

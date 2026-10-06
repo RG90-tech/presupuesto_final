@@ -4,32 +4,24 @@ const ingresos = [new Ingreso("Salario", 3000), new Ingreso("Venta auto", 600)];
 
 const egresos = [new Egreso("Renta", 900), new Egreso("Ropa", 400)];
 
-// Función para cargar el cabecero
-const cargarCabecero = () => {
-  let presupuesto = totalIngresos() - totalEgresos();
+// Funciones de formato de texto
+function formatearValor(valor) {
+  return valor.toLocaleString("es-MX", {
+    style: "currency",
+    currency: "MXN",
+    minimumFractionDigits: 2,
+  });
+}
 
-  // Validamos si totalIngresos() es mayor a 0 para evitar divisiones entre cero (NaN)
-  let porcentajeEgreso =
-    totalIngresos() > 0 ? totalEgresos() / totalIngresos() : 0;
+function formatoMoneda(valor) {
+  return valor.toLocaleString("es-MX", {
+    style: "currency",
+    currency: "MXN",
+    minimumFractionDigits: 2,
+  });
+}
 
-  // Signo + para presupuesto positivo
-  document.getElementById("presupuesto").innerHTML =
-    `+ ${formatoMoneda(presupuesto)}`;
-
-  document.getElementById("porcentaje").innerHTML =
-    formatoPorcentaje(porcentajeEgreso);
-
-  // Signo + para ingresos
-  document.getElementById("ingresos").innerHTML =
-    `+ ${formatoMoneda(totalIngresos())}`;
-
-  // Signo - para egresos
-  document.getElementById("egresos").innerHTML =
-    `- ${formatoMoneda(totalEgresos())}`;
-};
-
-// Función para dar formato de porcentaje con protección NaN
-const formatoPorcentaje = (valor) => {
+function formatoPorcentaje(valor) {
   if (isNaN(valor) || !isFinite(valor)) {
     return "0%";
   }
@@ -38,30 +30,44 @@ const formatoPorcentaje = (valor) => {
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   });
-};
+}
 
-// Función para dar formato de moneda
-
-const formatoMoneda = (valor) => {
-  return valor.toLocaleString("es-MX", {
-    style: "currency",
-    currency: "MXN",
-    minimumFractionDigits: 2,
-  });
-};
-
-// Ejecutar función
-
-cargarCabecero();
-
-const cargarIngresos = () => {
-  let ingresosHTML = "";
-
+// Funciones auxiliares para obtener los totales
+const totalIngresos = () => {
+  let total = 0;
   for (let ingreso of ingresos) {
-    ingresosHTML += crearIngresoHTML(ingreso);
+    total += ingreso.valor;
   }
+  return total;
+};
 
-  document.getElementById("lista-ingresos").innerHTML = ingresosHTML;
+const totalEgresos = () => {
+  let total = 0;
+  for (let egreso of egresos) {
+    total += egreso.valor;
+  }
+  return total;
+};
+
+// Función para cargar el cabecero
+const cargarCabecero = () => {
+  let presupuesto = totalIngresos() - totalEgresos();
+
+  let porcentajeEgreso =
+    totalIngresos() > 0 ? totalEgresos() / totalIngresos() : 0;
+
+  const signo = presupuesto >= 0 ? "+" : "";
+  document.getElementById("presupuesto").innerHTML =
+    `${signo} ${formatoMoneda(presupuesto)}`;
+
+  document.getElementById("porcentaje").innerHTML =
+    formatoPorcentaje(porcentajeEgreso);
+
+  document.getElementById("ingresos").innerHTML =
+    `+ ${formatoMoneda(totalIngresos())}`;
+
+  document.getElementById("egresos").innerHTML =
+    `- ${formatoMoneda(totalEgresos())}`;
 };
 
 const crearIngresoHTML = (ingreso) => {
@@ -69,7 +75,6 @@ const crearIngresoHTML = (ingreso) => {
     <div class="elemento limpiarfix" id="ingreso-${ingreso.id}">
         <div class="elemento__descripcion">${ingreso.descripcion}</div>
         <div class="derecha limpiarfix">
-            <!-- Agregamos la clase ingreso--color y el signo + -->
             <div class="elemento__valor ingreso--color">+ ${formatearValor(ingreso.valor)}</div>
             <div class="elemento__eliminar">
                 <button class="elemento__eliminar--btn" onclick="eliminarIngreso(${ingreso.id})">
@@ -81,19 +86,17 @@ const crearIngresoHTML = (ingreso) => {
     `;
 };
 
-const cargarEgresos = () => {
-  let egresosHTML = "";
-  const totalIng = totalIngresos(); // Obtiene el total acumulado
+const cargarIngresos = () => {
+  let ingresosHTML = "";
 
-  for (let egreso of egresos) {
-    egresosHTML += crearEgresoHTML(egreso, totalIng);
+  for (let ingreso of ingresos) {
+    ingresosHTML += crearIngresoHTML(ingreso);
   }
 
-  document.getElementById("lista-egresos").innerHTML = egresosHTML;
+  document.getElementById("lista-ingresos").innerHTML = ingresosHTML;
 };
 
 const crearEgresoHTML = (egreso, totalIngresos) => {
-  // Calculamos porcentaje sin decimales usando Math.round() o .toFixed(0)
   const porcentaje =
     totalIngresos > 0
       ? Math.round((Math.abs(egreso.valor) / totalIngresos) * 100) + "%"
@@ -103,7 +106,6 @@ const crearEgresoHTML = (egreso, totalIngresos) => {
     <div class="elemento limpiarfix" id="egreso-${egreso.id}">
         <div class="elemento__descripcion">${egreso.descripcion}</div>
         <div class="derecha limpiarfix">
-            <!-- Usamos Math.abs() para que formatearValor no agregue otro signo "-" -->
             <div class="elemento__valor egreso--color">- ${formatearValor(Math.abs(egreso.valor))}</div>
             <div class="elemento__porcentaje">${porcentaje}</div>
             <div class="elemento__eliminar">
@@ -116,62 +118,73 @@ const crearEgresoHTML = (egreso, totalIngresos) => {
     `;
 };
 
+const cargarEgresos = () => {
+  let egresosHTML = "";
+  const totalIng = totalIngresos();
+
+  for (let egreso of egresos) {
+    egresosHTML += crearEgresoHTML(egreso, totalIng);
+  }
+
+  document.getElementById("lista-egresos").innerHTML = egresosHTML;
+};
+
 const cargarApp = () => {
   cargarCabecero();
   cargarIngresos();
   cargarEgresos();
 };
 
+// Carga toda la aplicación al iniciar la página
+cargarApp();
+
 const eliminarIngreso = (id) => {
-  // Busca el índice del ingreso a eliminar
   const indiceEliminar = ingresos.findIndex((ingreso) => ingreso.id === id);
 
   if (indiceEliminar !== -1) {
     ingresos.splice(indiceEliminar, 1);
 
-    // Llama a la función correcta de la cabecera
     cargarCabecero();
     cargarIngresos();
-    cargarEgresos(); // Actualiza porcentajes al cambiar el total
+    cargarEgresos();
   }
 };
 
 const eliminarEgreso = (id) => {
   let indiceEliminar = egresos.findIndex((egreso) => egreso.id === id);
 
-  egresos.splice(indiceEliminar, 1);
+  if (indiceEliminar !== -1) {
+    egresos.splice(indiceEliminar, 1);
 
-  cargarCabecero();
-
-  cargarEgresos();
+    cargarCabecero();
+    cargarEgresos();
+  }
 };
 
-const agregarDato = () => {
-  let forma = document.getElementById("forma");
+const agregarDato = (e) => {
+  if (e) e.preventDefault();
+
   let tipo = document.getElementById("tipo").value;
   let descripcion = document.getElementById("descripcion").value;
   let valor = document.getElementById("valor").value;
 
-  if (descripcion !== "" && valor !== "") {
+  if (descripcion.trim() !== "" && valor.trim() !== "") {
     if (tipo === "ingreso") {
       ingresos.push(new Ingreso(descripcion, parseFloat(valor)));
-
       cargarCabecero();
       cargarIngresos();
+      cargarEgresos();
     } else if (tipo === "egreso") {
       egresos.push(new Egreso(descripcion, parseFloat(valor)));
-
       cargarCabecero();
       cargarEgresos();
     }
-  }
-};
 
-// Función para dar formato de moneda/valor a los números
-const formatearValor = (valor) => {
-  return valor.toLocaleString("es-MX", {
-    style: "currency",
-    currency: "MXN",
-    minimumFractionDigits: 2,
-  });
+    // Limpia únicamente las cajas de texto de entrada
+    document.getElementById("descripcion").value = "";
+    document.getElementById("valor").value = "";
+
+    // Regresa el selector por defecto al signo '+'
+        document.getElementById("tipo").value = "ingreso";
+  }
 };
