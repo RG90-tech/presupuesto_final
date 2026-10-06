@@ -1,3 +1,5 @@
+// Realizado por Randy García
+
 const ingresos = [
   new Ingreso("Salario", 3000),
   new Ingreso("Venta auto", 600),

@@ -1,3 +1,5 @@
+// Realizado por Randy García
+
 class Dato {
   constructor(descripcion, valor) {
     this._descripcion = descripcion;

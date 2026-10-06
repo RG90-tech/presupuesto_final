@@ -1,3 +1,5 @@
+// Realizado por Randy García
+
 const totalIngresos = () => {
   let totalIngreso = 0;
 
