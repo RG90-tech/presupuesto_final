@@ -1,7 +1,6 @@
 // Realizado por Randy García
 
 const ingresos = [new Ingreso("Salario", 3000), new Ingreso("Venta auto", 600)];
-
 const egresos = [new Egreso("Renta", 900), new Egreso("Ropa", 400)];
 
 // Funciones de formato de texto
@@ -21,9 +20,10 @@ function formatoMoneda(valor) {
   });
 }
 
+// Corrección para evitar mostrar 0% cuando la división da NaN o Infinity
 function formatoPorcentaje(valor) {
-  if (isNaN(valor) || !isFinite(valor)) {
-    return "0%";
+  if (valor === null || isNaN(valor) || !isFinite(valor)) {
+    return "N/A";
   }
   return valor.toLocaleString("es-MX", {
     style: "percent",
@@ -53,8 +53,9 @@ const totalEgresos = () => {
 const cargarCabecero = () => {
   let presupuesto = totalIngresos() - totalEgresos();
 
+  // Si totalIngresos() es 0, asignamos null para que la función devuelva 'N/A'
   let porcentajeEgreso =
-    totalIngresos() > 0 ? totalEgresos() / totalIngresos() : 0;
+    totalIngresos() > 0 ? totalEgresos() / totalIngresos() : null;
 
   const signo = presupuesto >= 0 ? "+" : "";
   document.getElementById("presupuesto").innerHTML =
@@ -88,19 +89,18 @@ const crearIngresoHTML = (ingreso) => {
 
 const cargarIngresos = () => {
   let ingresosHTML = "";
-
   for (let ingreso of ingresos) {
     ingresosHTML += crearIngresoHTML(ingreso);
   }
-
   document.getElementById("lista-ingresos").innerHTML = ingresosHTML;
 };
 
-const crearEgresoHTML = (egreso, totalIngresos) => {
+const crearEgresoHTML = (egreso, totalIng) => {
+  // Manejo de N/A en ítem individual cuando no hay ingresos
   const porcentaje =
-    totalIngresos > 0
-      ? Math.round((Math.abs(egreso.valor) / totalIngresos) * 100) + "%"
-      : "0%";
+    totalIng > 0
+      ? Math.round((Math.abs(egreso.valor) / totalIng) * 100) + "%"
+      : "N/A";
 
   return `
     <div class="elemento limpiarfix" id="egreso-${egreso.id}">
@@ -143,7 +143,6 @@ const eliminarIngreso = (id) => {
 
   if (indiceEliminar !== -1) {
     ingresos.splice(indiceEliminar, 1);
-
     cargarCabecero();
     cargarIngresos();
     cargarEgresos();
@@ -155,8 +154,8 @@ const eliminarEgreso = (id) => {
 
   if (indiceEliminar !== -1) {
     egresos.splice(indiceEliminar, 1);
-
     cargarCabecero();
+    cargarIngresos();
     cargarEgresos();
   }
 };
@@ -166,25 +165,24 @@ const agregarDato = (e) => {
 
   let tipo = document.getElementById("tipo").value;
   let descripcion = document.getElementById("descripcion").value;
-  let valor = document.getElementById("valor").value;
+  let valorInput = document.getElementById("valor").value;
+  let valor = parseFloat(valorInput);
 
-  if (descripcion.trim() !== "" && valor.trim() !== "") {
+  // Validación estricta: descripción no vacía, valor numérico y mayor a 0
+  if (descripcion.trim() !== "" && !isNaN(valor) && valor > 0) {
     if (tipo === "ingreso") {
-      ingresos.push(new Ingreso(descripcion, parseFloat(valor)));
-      cargarCabecero();
-      cargarIngresos();
-      cargarEgresos();
+      ingresos.push(new Ingreso(descripcion, valor));
     } else if (tipo === "egreso") {
-      egresos.push(new Egreso(descripcion, parseFloat(valor)));
-      cargarCabecero();
-      cargarEgresos();
+      egresos.push(new Egreso(descripcion, valor));
     }
 
-    // Limpia únicamente las cajas de texto de entrada
+    cargarCabecero();
+    cargarIngresos();
+    cargarEgresos();
+
+    // Limpieza de campos
     document.getElementById("descripcion").value = "";
     document.getElementById("valor").value = "";
-
-    // Regresa el selector por defecto al signo '+'
-        document.getElementById("tipo").value = "ingreso";
+    document.getElementById("tipo").value = "ingreso";
   }
 };

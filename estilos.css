@@ -213,6 +213,12 @@ h2 {
 .elemento {
   padding: 13px;
   border-bottom: 1px solid #e7e7e7;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.elemento:hover {
+  transform: translateX(-10px); /* Desplaza todo el registro 10px a la izquierda */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* Opcional: da sombra al flotar */
 }
 
 .elemento:first-child {
