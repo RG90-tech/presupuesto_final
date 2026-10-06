@@ -288,123 +288,129 @@ h2 {
 
 /* Estilo general del footer */
 .pie-pagina {
-    background: linear-gradient(to right, #e91e63, #673ab7); /* Mismo degradado de la cabecera */
-    color: #ffffff;
-    padding: 20px 0;
-    text-align: center;
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-    margin-top: 40px; /* Separación de la lista de egresos/ingresos */
+  background: linear-gradient(
+    to right,
+    #e91e63,
+    #673ab7
+  ); /* Mismo degradado de la cabecera */
+  color: #ffffff;
+  padding: 20px 0;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  margin-top: 40px; /* Separación de la lista de egresos/ingresos */
 }
 
 /* Alineación y espaciado del contenido */
 .contenido-footer {
-    max-width: 1000px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
 /* Estilos para los enlaces */
 .enlaces-footer a {
-    color: rgba(255, 255, 255, 0.8);
-    text-decoration: none;
-    margin: 0 10px;
-    transition: color 0.3s ease;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  margin: 0 10px;
+  transition: color 0.3s ease;
 }
 
 .enlaces-footer a:hover {
-    color: #ffffff;
-    text-decoration: underline;
+  color: #ffffff;
+  text-decoration: underline;
 }
 
 /* Utilidad para limpiar los flotados entre elementos */
 .limpiarfix::after {
-    content: "";
-    clear: both;
-    display: table;
+  content: "";
+  clear: both;
+  display: table;
 }
 
 /* Alineación general del elemento */
 .elemento {
-    padding: 13px;
-    border-bottom: 1px solid #e7e7e7;
+  padding: 13px;
+  border-bottom: 1px solid #e7e7e7;
 }
 
 .elemento:nth-child(even) {
-    background-color: #f7f7f7;
+  background-color: #f7f7f7;
 }
 
 .elemento__descripcion {
-    float: left;
+  float: left;
 }
 
 .derecha {
-    float: right;
+  float: right;
 }
 
 .elemento__valor {
-    float: left;
-    transition: transform 0.3s;
+  float: left;
+  transition: transform 0.3s;
 }
 
 /* Caja de porcentaje con fondo rosado */
 .elemento__porcentaje {
-    float: left;
-    background-color: #fde8e8;
-    color: #FF5049;
-    font-size: 11px;
-    padding: 3px 6px;
-    margin-left: 10px;
-    border-radius: 3px;
-    font-weight: 600;
+  float: left;
+  background-color: #fde8e8;
+  color: #ff5049;
+  font-size: 11px;
+  padding: 3px 6px;
+  margin-left: 10px;
+  border-radius: 3px;
+  font-weight: 600;
 }
 
 .elemento__eliminar {
-    float: left;
-    margin-left: 10px;
+  float: left;
+  margin-left: 10px;
 }
 
 /* Estilo para el botón de eliminar */
 .elemento__eliminar--btn {
-    font-size: 18px;
-    background: none;
-    border: none;
-    color: #FF5049;
-    cursor: pointer;
-    display: inline-block;
-    vertical-align: middle;
-    line-height: 1;
+  font-size: 18px;
+  background: none;
+  border: none;
+  color: #ff5049;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1;
 }
 
 /* Color verde para los ingresos */
 .ingreso--color {
-    color: #28B9B5 !important;
+  color: #28b9b5 !important;
 }
 
 /* Color rojo para los egresos */
 .egreso--color {
-    color: #FF5049 !important;
+  color: #ff5049 !important;
 }
 
 /* 1. Configurar el body para que ocupe todo el alto de la pantalla */
 body {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
 }
 
 /* 2. El contenedor principal empujará al footer hacia el fondo */
-.contenedor, .contenedor-principal { 
-    flex: 1; /* Ocupa todo el espacio disponible en el centro */
+.contenedor,
+.contenedor-principal {
+  flex: 1; /* Ocupa todo el espacio disponible en el centro */
 }
 
 /* 3. Estilo del footer para asegurarse de quedar abajo */
-footer, .pie-pagina {
-    margin-top: auto; /* Empuja el footer hacia la parte inferior */
-    width: 100%;
+footer,
+.pie-pagina {
+  margin-top: auto; /* Empuja el footer hacia la parte inferior */
+  width: 100%;
 }
