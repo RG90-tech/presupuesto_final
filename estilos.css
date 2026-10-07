@@ -29,16 +29,34 @@ body {
   border: 1px solid #ff5049 !important;
 }
 
+.cabecero,
+.pie-pagina {
+  background-image: 
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="56" height="100" viewBox="0 0 56 100"><path d="M28 66L0 50L0 16L28 0L56 16L56 50Z" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1"/><path d="M28 0L28 66M0 50L28 33L56 50" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1"/><path d="M28 100L0 84L0 50L28 34L56 50L56 84Z" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1"/><path d="M28 34L28 100M0 84L28 67L56 84" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1"/></svg>'),
+    linear-gradient(to left, #7b4397, #dc2430);
+  background-size: 56px 100px, cover;
+  background-position: center;
+}
+
+/* 2. Estilos específicos para la cabecera */
 .cabecero {
   height: 40vh;
-  background-size: cover;
-  background-position: center;
   position: relative;
   width: 100%;
   padding-top: 150px;
   padding-bottom: 100px;
   color: #ffffff;
-  background: linear-gradient(to left, #7b4397, #dc2430);
+}
+
+/* 3. Estilos específicos para el footer */
+.pie-pagina {
+  color: #ffffff;
+  padding: 20px 0;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  margin-top: auto; 
+  width: 100%;
 }
 
 .presupuesto {
@@ -414,9 +432,17 @@ body {
   flex: 1; /* Ocupa todo el espacio disponible en el centro */
 }
 
-/* Estilo general del footer */
+.cabecero,
 .pie-pagina {
-  background: linear-gradient(to left, #7b4397, #dc2430); /* Mismos colores y dirección que .cabecero */
+  background-image: 
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="56" height="100" viewBox="0 0 56 100"><path d="M28 66L0 50L0 16L28 0L56 16L56 50Z" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1"/><path d="M28 0L28 66M0 50L28 33L56 50" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1"/><path d="M28 100L0 84L0 50L28 34L56 50L56 84Z" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1"/><path d="M28 34L28 100M0 84L28 67L56 84" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1"/></svg>'),
+    linear-gradient(to left, #7b4397, #dc2430) !important;
+  background-size: 56px 100px, cover !important;
+  background-position: center !important;
+}
+
+/* Estilos de estructura para el footer */
+.pie-pagina {
   color: #ffffff;
   padding: 20px 0;
   text-align: center;
