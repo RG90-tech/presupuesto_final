@@ -1,14 +1,14 @@
 // Realizado por Randy García
 
 class Ingreso extends Dato {
-    static contadorIngresos = 0;
+  static contadorIngresos = 0;
 
-    constructor(descripcion, valor) {
-        super(descripcion, valor);
-        this._id = ++Ingreso.contadorIngresos;
-    }
+  constructor(descripcion, valor) {
+    super(descripcion, valor);
+    this._id = ++Ingreso.contadorIngresos;
+  }
 
-    get id() {
-        return this._id;
-    }
+  get id() {
+    return this._id;
+  }
 }

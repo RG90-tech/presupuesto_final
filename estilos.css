@@ -31,10 +31,12 @@ body {
 
 .cabecero,
 .pie-pagina {
-  background-image: 
+  background-image:
     url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="56" height="100" viewBox="0 0 56 100"><path d="M28 66L0 50L0 16L28 0L56 16L56 50Z" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1"/><path d="M28 0L28 66M0 50L28 33L56 50" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1"/><path d="M28 100L0 84L0 50L28 34L56 50L56 84Z" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1"/><path d="M28 34L28 100M0 84L28 67L56 84" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1"/></svg>'),
     linear-gradient(to left, #7b4397, #dc2430);
-  background-size: 56px 100px, cover;
+  background-size:
+    56px 100px,
+    cover;
   background-position: center;
 }
 
@@ -55,7 +57,7 @@ body {
   text-align: center;
   font-family: Arial, sans-serif;
   font-size: 14px;
-  margin-top: auto; 
+  margin-top: auto;
   width: 100%;
 }
 
@@ -231,11 +233,15 @@ h2 {
 .elemento {
   padding: 13px;
   border-bottom: 1px solid #e7e7e7;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .elemento:hover {
-  transform: translateX(-10px); /* Desplaza todo el registro 10px a la izquierda */
+  transform: translateX(
+    -10px
+  ); /* Desplaza todo el registro 10px a la izquierda */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* Opcional: da sombra al flotar */
 }
 
@@ -434,10 +440,12 @@ body {
 
 .cabecero,
 .pie-pagina {
-  background-image: 
+  background-image:
     url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="56" height="100" viewBox="0 0 56 100"><path d="M28 66L0 50L0 16L28 0L56 16L56 50Z" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1"/><path d="M28 0L28 66M0 50L28 33L56 50" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1"/><path d="M28 100L0 84L0 50L28 34L56 50L56 84Z" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1"/><path d="M28 34L28 100M0 84L28 67L56 84" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1"/></svg>'),
     linear-gradient(to left, #7b4397, #dc2430) !important;
-  background-size: 56px 100px, cover !important;
+  background-size:
+    56px 100px,
+    cover !important;
   background-position: center !important;
 }
 
@@ -448,6 +456,6 @@ body {
   text-align: center;
   font-family: Arial, sans-serif;
   font-size: 14px;
-  margin-top: auto; 
+  margin-top: auto;
   width: 100%;
 }
