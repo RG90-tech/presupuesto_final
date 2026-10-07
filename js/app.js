@@ -5,19 +5,19 @@ const egresos = [new Egreso("Renta", 900), new Egreso("Ropa", 400)];
 
 // Funciones de formato de texto
 function formatearValor(valor) {
-  return valor.toLocaleString("es-MX", {
-    style: "currency",
-    currency: "MXN",
+  const formateado = valor.toLocaleString("es-MX", {
     minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
   });
+  return `$${formateado} MXN`;
 }
 
 function formatoMoneda(valor) {
-  return valor.toLocaleString("es-MX", {
-    style: "currency",
-    currency: "MXN",
+  const formateado = valor.toLocaleString("es-MX", {
     minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
   });
+  return `$${formateado} MXN`;
 }
 
 // Corrección para evitar mostrar 0% cuando la división da NaN o Infinity
